@@ -17,6 +17,7 @@ Merchant is out of stock, sorry
   <%= review.title %>
   Rating: <%= review.rating %>
   <%= review.description %>
+  <%= review.created_at %>
   <%= link_to "Return to Profile", profile_path(review.user) %>
 </div>
 <% end %>
