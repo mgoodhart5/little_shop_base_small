@@ -1,5 +1,6 @@
 class Item < ApplicationRecord
   belongs_to :user, foreign_key: 'merchant_id'
+  has_many :reviews
   has_many :order_items
   has_many :orders, through: :order_items
 

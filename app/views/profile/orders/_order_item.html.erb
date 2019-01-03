@@ -10,7 +10,7 @@
     <p>Subtotal: <%= number_to_currency(oitem.subtotal) %></p>
     <p>Fulfilled: <%= oitem.fulfilled ? 'Yes' : 'No' %></p>
     <% if @order.status == 'completed' %>
-    <%= button_to "Leave Review", item_review_path(oitem.item) %>
+    <%= button_to "Leave Review", new_item_review_path(oitem.item) %>
     <% end %>
   </div>
 </div>
