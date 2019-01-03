@@ -1,3 +1,4 @@
+Leave a Review!
 <div class="new-review">
   <%= form_for [@item, @review] do |f| %>
     <%= f.label :title %>
@@ -6,7 +7,7 @@
     <%= f.text_field :user %>
     <%= f.label :rating %>
     <%= f.select :rating, [[1, 1],[2, 2],[3, 3],[4, 4],[5, 5]] %>
-    <%= f.label :review_text %>
+    <%= f.label :description %>
     <%= f.text_area :description %>
     <%= f.submit  %>
   <% end %>

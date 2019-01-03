@@ -7,6 +7,19 @@ class ReviewsController < ApplicationController
 
   def create
     item = Item.find(params[:id])
+    user = User.find_by(params[:user])
+    review = user.reviews.create(review_params)
+
+    item.reviews << review
+
+    flash[:notice] = "You left a review for #{item.name}"
+    redirect_to item_path(item)
+  end
+
+  private
+
+  def review_params
+    params.require(:review).permit(:title, :rating, :description)
   end
 
 end

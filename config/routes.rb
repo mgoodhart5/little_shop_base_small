@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   root to: 'welcome#index'
 
   resources :items, only: [:index, :show]
-  get '/item/:id/review', to: 'reviews#new', as: 'item_reviews'
-  post '/item/:id/review', to: 'reviews#create', as: 'new_item_review'
+  get '/item/:id/review', to: 'reviews#new', as: 'new_item_reviews'
+  post '/item/:id/review', to: 'reviews#create', as: 'item_reviews'
   resources :merchants, only: [:index]
 
   get '/cart', to: 'cart#index'
