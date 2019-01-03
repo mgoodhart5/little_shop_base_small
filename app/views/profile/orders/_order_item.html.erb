@@ -9,5 +9,8 @@
     <p>Quantity: <%= oitem.quantity %></p>
     <p>Subtotal: <%= number_to_currency(oitem.subtotal) %></p>
     <p>Fulfilled: <%= oitem.fulfilled ? 'Yes' : 'No' %></p>
+    <% if @order.status == 'completed' && oitem.item.reviews.count == 0 %>
+    <%= button_to "Leave Review", new_item_reviews_path(oitem.item), method: :get %>
+    <% end %>
   </div>
 </div>

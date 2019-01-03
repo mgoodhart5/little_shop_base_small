@@ -74,3 +74,7 @@ end
 
 def login_as_user(email, password)
 end
+
+def post_login(user)
+  page.driver.post(login_path, user_email: user.email, user_password: "chocolate")
+end
