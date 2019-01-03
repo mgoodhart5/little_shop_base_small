@@ -107,5 +107,26 @@ describe "as a user when I visit an completed order show page" do
     end
 
     expect(current_path).to eq(profile_order_path(@order))
+
+    visit items_path
+
+    within("#item-#{@oi_1.item.id}") do
+      expect(page).to have_content("Reviews: 1")
+    end
+  end
+  it 'cannot review any items on a cancelled order' do
+    user = create(:user)
+    merchant = create(:merchant)
+    item_1 = create(:item, user: merchant)
+    item_2 = create(:item, user: merchant)
+    yesterday = 1.day.ago
+    order = create(:cancelled_order, user: user)
+    oi_1 = create(:order_item, order: order, item: item_1, price: 1, quantity: 1, created_at: @yesterday, updated_at: @yesterday)
+
+    visit profile_order_path(order)
+
+    within "#oitem-#{oi_1.id}" do
+      expect(page).to_not have_button('Leave Review')
+    end
   end
 end
