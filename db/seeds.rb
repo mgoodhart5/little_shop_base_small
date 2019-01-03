@@ -7,9 +7,9 @@ Order.destroy_all
 Item.destroy_all
 User.destroy_all
 
-admin = create(:admin)
-user = create(:user)
-merchant_1 = create(:merchant)
+admin = create(:admin, name: "Mary", email: "admin@gmail.com", password: "123")
+user = create(:user, name: "Mia Wallace", email: "m@gmail.com", password: "123")
+merchant_1 = create(:merchant, name: "Steve O", email: "merchant@gmail.com", password: "123")
 
 merchant_2, merchant_3, merchant_4 = create_list(:merchant, 3)
 

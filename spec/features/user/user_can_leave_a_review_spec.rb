@@ -6,7 +6,7 @@ describe "as a user when I visit an completed order show page" do
     @merchant = create(:merchant)
     @item_1 = create(:item, user: @merchant)
     @item_2 = create(:item, user: @merchant)
-    @@yesterday = 1.day.ago
+    @yesterday = 1.day.ago
     @order = create(:completed_order, user: @user)
     @oi_1 = create(:fulfilled_order_item, order: @order, item: @item_1, price: 1, quantity: 1, created_at: @yesterday, updated_at: @yesterday)
     @oi_2 = create(:fulfilled_order_item, order: @order, item: @item_2, price: 2, quantity: 1, created_at: @yesterday, updated_at: 2.hours.ago)
@@ -118,10 +118,9 @@ describe "as a user when I visit an completed order show page" do
     user = create(:user)
     merchant = create(:merchant)
     item_1 = create(:item, user: merchant)
-    item_2 = create(:item, user: merchant)
     yesterday = 1.day.ago
     order = create(:cancelled_order, user: user)
-    oi_1 = create(:order_item, order: order, item: item_1, price: 1, quantity: 1, created_at: @yesterday, updated_at: @yesterday)
+    oi_1 = create(:order_item, order: order, item: item_1, price: 1, quantity: 1, created_at: yesterday, updated_at: yesterday)
 
     visit profile_order_path(order)
 

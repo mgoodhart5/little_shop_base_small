@@ -13,7 +13,7 @@ Merchant is out of stock, sorry
 <% end %>
 <% @item.reviews.each_with_index do |review, index| %>
 <div id="review-<%= index %>">
-  <%= review.user.name %>
+  <%= review.user_name %>
   <%= review.title %>
   Rating: <%= review.rating %>
   <%= review.description %>

@@ -7,7 +7,7 @@ class ReviewsController < ApplicationController
 
   def create
     item = Item.find(params[:id])
-    user = User.find_by(params[:user])
+    user = User.find_by(name: params[:review][:user])
     review = user.reviews.create(review_params)
 
     item.reviews << review
