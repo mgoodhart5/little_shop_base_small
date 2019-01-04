@@ -1,7 +1,7 @@
 Leave a Review!
 
 <div class="new-review">
-  <%= form_for [@item, @review] do |f| %>
+  <%= form_for @form_path do |f| %>
     <%= f.label :title %>
     <%= f.text_field :title %>
     <%= f.label :user %>

@@ -35,7 +35,7 @@ describe "as a user when I visit an completed order show page" do
       click_button('Leave Review')
     end
 
-    expect(current_path).to eq(new_item_reviews_path(@item_1))
+    expect(current_path).to eq(profile_order_order_item_new_review_path(@order, @oi_1))
 
     expect(page).to have_content("Leave a Review!")
   end
@@ -50,7 +50,7 @@ describe "as a user when I visit an completed order show page" do
       click_button('Leave Review')
     end
 
-    expect(current_path).to eq(new_item_reviews_path(@item_1))
+    expect(current_path).to eq(profile_order_order_item_new_review_path(@order, @oi_1))
 
     review_title = "Didn't need it."
     user_name = "#{@user.name}"

@@ -1,16 +1,19 @@
-class ReviewsController < ApplicationController
+class Profile::ReviewsController < ApplicationController
 
   def new
-    @item = Item.find(params[:id])
     @review = Review.new
+    @order = Order.find(params[:order_id])
+    @order_item = OrderItem.find(params[:order_item_id])
+    @form_path = [:profile, @order, @order_item, @review]
   end
 
   def create
-    item = Item.find(params[:id])
+    order_item = OrderItem.find(params[:order_item_id])
+    item = order_item.item
     user = User.find_by(name: params[:review][:user])
     review = user.reviews.create(review_params)
 
-    item.reviews << review
+    order_item.reviews << review
 
     flash[:notice] = "You left a review for #{item.name}"
     redirect_to item_path(item)

@@ -2,9 +2,6 @@ Rails.application.routes.draw do
   root to: 'welcome#index'
 
   resources :items, only: [:index, :show]
-  get '/item/:id/review', to: 'reviews#new', as: 'new_item_reviews'
-  post '/item/:id/review', to: 'reviews#create', as: 'item_reviews'
-  patch '/item/:id/review', to: 'reviews#disable', as: 'disable_item_reviews'
   resources :merchants, only: [:index]
 
   get '/cart', to: 'cart#index'
@@ -34,7 +31,11 @@ Rails.application.routes.draw do
 
   get '/profile/edit', to: 'users#edit'
   namespace :profile do
-    resources :orders, only: [:index, :create, :show, :destroy]
+    resources :orders, only: [:index, :create, :show, :destroy] do
+      get '/order_item/:order_item_id/review/new', to: 'reviews#new', as: 'order_item_new_review'
+      post '/order_item/:order_item_id/review', to: 'reviews#create', as: 'order_item_reviews'
+      patch '/order_item/:order_item_id/review/:id/disable', to: 'reviews#disable', as: 'order_item_disable_review'
+    end
   end
 
   post '/admin/users/:merchant_id/items', to: 'dashboard/items#create', as: 'admin_user_items'
