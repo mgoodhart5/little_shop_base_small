@@ -9,11 +9,15 @@
     <p>Quantity: <%= oitem.quantity %></p>
     <p>Subtotal: <%= number_to_currency(oitem.subtotal) %></p>
     <p>Fulfilled: <%= oitem.fulfilled ? 'Yes' : 'No' %></p>
+    <p>Reviews: <%= oitem.item.enabled_reviews.count %></p>
+    <% if current_user && current_user.reviews.count > 0 && oitem.item.reviews.count > 0 %>
+    <p>Your review: <%= oitem.item.review_description(current_user) %></p>
+    <% end %>
     <% if @order.status == 'completed' && oitem.item.reviews.count == 0 %>
     <%= button_to "Leave Review", new_item_reviews_path(oitem.item), method: :get %>
     <% end %>
-    <% if @order.status == 'completed' && oitem.item.reviews.count > 0 %>
-    <%= button_to "Disable Review", disable_item_reviews_path(oitem.item), method: :get %>
+    <% if @order.status == 'completed' && oitem.item.enabled_reviews.count > 0 %>
+    <%= button_to "Disable Review", disable_item_reviews_path(oitem.item), method: :patch %>
     <% end %>
   </div>
 </div>

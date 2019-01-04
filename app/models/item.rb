@@ -42,4 +42,13 @@ class Item < ApplicationRecord
   def ever_ordered?
     OrderItem.find_by_item_id(self.id) !=  nil
   end
+
+  def review_description(user)
+    review = Review.where(user_id: user)
+    review.first.description
+  end
+
+  def enabled_reviews
+    Review.where(status: true)
+  end
 end

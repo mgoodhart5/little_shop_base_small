@@ -16,6 +16,18 @@ class ReviewsController < ApplicationController
     redirect_to item_path(item)
   end
 
+  def disable
+    item = Item.find(params[:id])
+    item.reviews.map do |review|
+      review = Review.find(review.id)
+      review.status = false
+      review.save
+    end
+
+    flash[:notice] = "You disabled your review for #{item.name}."
+    redirect_to item_path(item)
+  end
+
   private
 
   def review_params

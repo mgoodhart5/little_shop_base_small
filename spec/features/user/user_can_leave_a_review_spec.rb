@@ -100,6 +100,8 @@ describe "as a user when I visit an completed order show page" do
 
     within "#oitem-#{@oi_1.id}" do
       expect(page).to_not have_button('Leave Review')
+      expect(page).to have_content("Reviews: #{@item_1.reviews.count}")
+      expect(page).to have_content("Your review: #{@item_1.review_description(@user)}")
     end
 
     within "#oitem-#{@oi_2.id}" do
