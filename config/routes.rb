@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :items, only: [:index, :show]
   get '/item/:id/review', to: 'reviews#new', as: 'new_item_reviews'
   post '/item/:id/review', to: 'reviews#create', as: 'item_reviews'
+  patch '/item/:id/review', to: 'reviews#disable', as: 'disable_item_reviews'
   resources :merchants, only: [:index]
 
   get '/cart', to: 'cart#index'
