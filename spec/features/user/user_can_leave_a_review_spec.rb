@@ -70,7 +70,7 @@ describe "as a user when I visit an completed order show page" do
       expect(page).to have_content(review_text)
       expect(page).to have_content("Rating: #{rating}")
       expect(page).to have_content(review_title)
-      expect(page).to have_link("Return to Profile")
+      expect(page).to have_link("Return to Orders")
     end
     expect(page).to have_content("You left a review for #{@item_1.name}")
   end

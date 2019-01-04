@@ -81,8 +81,10 @@ RSpec.describe Item, type: :model do
     it '.enabled_review' do
       user = create(:user, name: "Mary")
       item = create(:item)
+      item_2 = create(:item)
       review = Review.create(title: "yay", description: "great", rating: 4, item: item, user: user)
       review_2 = Review.create(title: "better", description: "fun", rating: 4, item: item, user: user, status: false)
+      review_3 = Review.create(title: "better", description: "fun", rating: 4, item: item_2, user: user)
       user.reviews << review
       final = item.enabled_reviews
 

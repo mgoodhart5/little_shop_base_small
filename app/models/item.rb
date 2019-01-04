@@ -49,6 +49,6 @@ class Item < ApplicationRecord
   end
 
   def enabled_reviews
-    Review.where(status: true)
+    Review.where(status: true, item: self)
   end
 end
