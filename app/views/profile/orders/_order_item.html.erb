@@ -14,7 +14,7 @@
     <div id="oitem-<%= oitem.id %>-review">
     <% if @order.status == 'completed' && oitem.reviews.count == 0 %>
       <%= button_to "Leave Review", profile_order_order_item_new_review_path(@order, oitem), method: :get %>
-    <% elsif @order.status == 'completed' && oitem.reviews.count == 1 %>
+    <% elsif @order.status == 'completed' && oitem.reviews.count == 1 && oitem.reviews[0].status %>
       <%= button_to "Disable Review", profile_order_order_item_disable_review_path(@order, oitem, oitem.reviews[0]), method: :patch %>
     <% end %>
     <p>Your review: <%= oitem.review_description %></p>
