@@ -111,6 +111,8 @@ describe "as a user when I visit an completed order show page" do
     end
   end
   it 'cannot review any items on a cancelled order' do
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+    
     user = create(:user)
     merchant = create(:merchant)
     item_1 = create(:item, user: merchant)

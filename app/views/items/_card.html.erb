@@ -10,7 +10,11 @@
     <p>
       <strong>Sold by:</strong> <%= item.user.name %><br/>
       <strong>In stock:</strong> <%= item.inventory %>
-      <strong>Reviews:</strong> <%= item.current_reviews.count %>
+      <% if item.current_reviews.count == 0 %>
+        <strong>Reviews: </strong><%= item.current_reviews.count %>
+      <% elsif item.current_reviews.count > 0 %>
+        <strong><%= link_to "Reviews", item_path(item) %>: </strong><%= item.current_reviews.count %>
+      <% end %>
     </p>
   </div>
 </div>
