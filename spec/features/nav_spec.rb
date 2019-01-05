@@ -5,6 +5,13 @@ RSpec.describe 'Site Nav', type: :feature do
     @user = create(:user)
     @merchant = create(:merchant)
     @admin = create(:admin)
+    @merchant = create(:merchant)
+    @item_1 = create(:item, user: @merchant)
+    @item_2 = create(:item, user: @merchant)
+    @yesterday = 1.day.ago
+    @order = create(:completed_order, user: @user)
+    @oi_1 = create(:fulfilled_order_item, order: @order, item: @item_1, price: 1, quantity: 1, created_at: @yesterday, updated_at: @yesterday)
+    @oi_2 = create(:fulfilled_order_item, order: @order, item: @item_2, price: 2, quantity: 1, created_at: @yesterday, updated_at: 2.hours.ago)
   end
   it 'should show proper links for all visitors' do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(nil)
@@ -35,6 +42,10 @@ RSpec.describe 'Site Nav', type: :feature do
     expect(page).to_not have_link('Users')
 
     visit profile_path
+    expect(page.status_code).to eq(404)
+    visit profile_order_path(@order)
+    expect(page.status_code).to eq(404)
+    visit profile_order_order_item_new_review_path(@order, @oi_1)
     expect(page.status_code).to eq(404)
     visit dashboard_path
     expect(page.status_code).to eq(404)
@@ -96,6 +107,10 @@ RSpec.describe 'Site Nav', type: :feature do
 
     visit profile_path
     expect(page.status_code).to eq(404)
+    visit profile_order_path(@order)
+    expect(page.status_code).to eq(404)
+    visit profile_order_order_item_new_review_path(@order, @oi_1)
+    expect(page.status_code).to eq(404)
     visit cart_path
     expect(page.status_code).to eq(404)
     visit cart_path
@@ -132,6 +147,8 @@ RSpec.describe 'Site Nav', type: :feature do
     visit dashboard_path
     expect(page.status_code).to eq(404)
     visit profile_path
+    expect(page.status_code).to eq(404)
+    visit profile_order_order_item_new_review_path(@order, @oi_1)
     expect(page.status_code).to eq(404)
     visit cart_path
     expect(page.status_code).to eq(404)
