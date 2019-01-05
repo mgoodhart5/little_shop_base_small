@@ -47,7 +47,7 @@ order_item_8 = create(:order_item, order: order, item: item_3, price: 3, quantit
 order = create(:completed_order, user: user)
 order_item_9 = create(:fulfilled_order_item, order: order, item: item_1, price: 1, quantity: 1, created_at: rng.rand(4).days.ago, updated_at: rng.rand(59).minutes.ago)
 order_item_10 = create(:fulfilled_order_item, order: order, item: item_2, price: 2, quantity: 1, created_at: rng.rand(23).hour.ago, updated_at: rng.rand(59).minutes.ago)
-# 
-# Review.create(title: "yay", description: "great", rating: 4, item: item_1, user: user,  status: true)
-# Review.create(title: "no", description: "this was terrible", rating: 1, item: item_3, user: user,  status: false)
-# Review.create(title: "fabulous", description: "the best ever", rating: 5, item: item_2, user: user,  status: true)
+
+Review.create(title: "yay", description: "great", rating: 4, order_item: order_item_1, user: user,  status: true)
+Review.create(title: "no", description: "this was terrible", rating: 1, order_item: order_item_3, user: user,  status: false)
+Review.create(title: "fabulous", description: "the best ever", rating: 5, order_item: order_item_10, user: user,  status: true)

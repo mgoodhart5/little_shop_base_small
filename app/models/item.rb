@@ -44,8 +44,7 @@ class Item < ApplicationRecord
     OrderItem.find_by_item_id(self.id) !=  nil
   end
 
-  #
-  # def enabled_reviews
-  #   Review.where(status: true, item: self)
-  # end
+  def current_reviews
+    Review.where(status:true, order_item: self.order_items)
+  end
 end

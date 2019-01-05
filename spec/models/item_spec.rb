@@ -14,7 +14,6 @@ RSpec.describe Item, type: :model do
   describe 'relationships' do
     it { should belong_to :user }
     it { should have_many :order_items }
-    # it { should have_many :reviews }
     it { should have_many(:orders).through(:order_items) }
   end
 
@@ -67,18 +66,17 @@ RSpec.describe Item, type: :model do
       expect(item_1.ever_ordered?).to eq(true)
       expect(item_2.ever_ordered?).to eq(false)
     end
+    it '.current_reviews' do
+      user = create(:user, name: "Mary")
+      item = create(:item)
+      order = create(:completed_order)
+      oi_1 = create(:fulfilled_order_item, order: order, item: item, created_at: 4.days.ago, updated_at: 1.days.ago)
+      oi_3 = create(:fulfilled_order_item, order: order, item: item, created_at: 4.days.ago, updated_at: 1.days.ago)
+      review_2 = Review.create(title: "better", description: "fun", rating: 4, order_item: oi_1, user: user, status: false)
+      review_3 = Review.create(title: "better", description: "fun", rating: 4, order_item: oi_3, user: user)
+      reviews = ([review_3])
 
-    # it '.enabled_review' do
-    #   user = create(:user, name: "Mary")
-    #   item = create(:item)
-    #   item_2 = create(:item)
-    #   review = Review.create(title: "yay", description: "great", rating: 4, item: item, user: user)
-    #   review_2 = Review.create(title: "better", description: "fun", rating: 4, item: item, user: user, status: false)
-    #   review_3 = Review.create(title: "better", description: "fun", rating: 4, item: item_2, user: user)
-    #   user.reviews << review
-    #   final = item.enabled_reviews
-    #
-    #   expect(final).to eq([review])
-    # end
+      expect(item.current_reviews).to eq(reviews)
+    end
   end
 end

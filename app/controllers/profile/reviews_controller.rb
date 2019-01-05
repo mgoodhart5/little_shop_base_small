@@ -21,13 +21,23 @@ class Profile::ReviewsController < ApplicationController
 
   def disable
     review = Review.find(params[:id])
-    # user = User.find(review.user_id)
     order_item = OrderItem.find(review.order_item_id)
     order = Order.find(params[:order_id])
     review.status = false
     review.save
 
     flash[:notice] = "You disabled your review for #{order_item.item.name}!"
+    redirect_to profile_order_path(order)
+  end
+
+  def enable
+    review = Review.find(params[:id])
+    order_item = OrderItem.find(review.order_item_id)
+    order = Order.find(params[:order_id])
+    review.status = true
+    review.save
+
+    flash[:notice] = "You enabled your review for #{order_item.item.name}!"
     redirect_to profile_order_path(order)
   end
 
