@@ -1,6 +1,7 @@
 class OrderItem < ApplicationRecord
   belongs_to :order
   belongs_to :item
+  has_many :reviews
 
   validates :price, presence: true, numericality: {
     only_integer: false,
@@ -14,4 +15,9 @@ class OrderItem < ApplicationRecord
   def subtotal
     quantity * price
   end
+
+  def review_description
+    reviews.pluck(:description)[0]
+  end
+
 end

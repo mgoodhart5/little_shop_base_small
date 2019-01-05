@@ -182,5 +182,21 @@ RSpec.describe Order, type: :model do
       expect(order.item_fulfilled?(item_1.id)).to eq(false)
       expect(order.item_fulfilled?(item_2.id)).to eq(true)
     end
+    it '.all_items' do
+      merchant = create(:merchant)
+      user = create(:user)
+      item_1 = create(:item, name: "glitter", user: merchant)
+      item_2 = create(:item, name: "sparklers", user: merchant)
+      item_3 = create(:item, user: merchant)
+      order_1 = create(:completed_order, user: user)
+      order_2 = create(:completed_order, user: user)
+      oi_1 = create(:fulfilled_order_item, order: order_1, item: item_1, price: 345.67, quantity: 397)
+      oi_2 = create(:fulfilled_order_item, order: order_2, item: item_1, price: 345.67, quantity: 397)
+      oi_3 = create(:fulfilled_order_item, order: order_2, item: item_3, price: 345.67, quantity: 397)
+      oi_4 = create(:fulfilled_order_item, order: order_1, item: item_2, price: 345.67, quantity: 397)
+      all_order_items = ([item_1, item_2])
+      # binding.pry
+      expect(order_1.all_items).to eq(all_order_items)
+    end
   end
 end

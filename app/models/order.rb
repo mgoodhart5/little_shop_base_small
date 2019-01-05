@@ -83,4 +83,11 @@ class Order < ApplicationRecord
   def item_fulfilled?(item_id)
     order_items.where(item_id: item_id).pluck(:fulfilled).first
   end
+
+  def all_items
+    order_items.map do |oi|
+      Item.find(oi.item_id)
+    end
+  end
+  
 end
