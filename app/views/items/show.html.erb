@@ -10,6 +10,7 @@ Merchant is out of stock, sorry
 <% end %>
 
 <p>Average time to fulfill: <%= fulfillment_time(@item.avg_fulfillment_time) %>
+<p>Average Rating: <%= @item.average_rating %>
 <% end %>
 <% @item.order_items.each_with_index do |oi, index| %>
     <div id="review-<%= index %>">
@@ -19,9 +20,11 @@ Merchant is out of stock, sorry
         <%= review.title %>
         Rating: <%= review.rating %>
         <%= review.description %>
-        <%= review.created_at %>
+        <%= review.created_at.strftime("%A %B %d, %Y") %>
         <%= link_to "Return to Orders", profile_orders_path(review.user) %>
     </div>
+    <% elsif @item.current_reviews.count > 0 %>
+      <%= " " %>
     <% else %>
       <%= "No reviews currently." %>
     <% end %>

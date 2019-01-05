@@ -1,6 +1,5 @@
 class Item < ApplicationRecord
   belongs_to :user, foreign_key: 'merchant_id'
-  # has_many :reviews
 
   has_many :order_items
   has_many :orders, through: :order_items
@@ -45,6 +44,10 @@ class Item < ApplicationRecord
   end
 
   def current_reviews
-    Review.where(status:true, order_item: self.order_items)
+    Review.where(status: true, order_item: self.order_items)
+  end
+
+  def average_rating
+    Review.where(status: true, order_item: self.order_items).average(:rating)
   end
 end
