@@ -1,6 +1,7 @@
 class Item < ApplicationRecord
   belongs_to :user, foreign_key: 'merchant_id'
-  has_many :reviews
+  # has_many :reviews
+
   has_many :order_items
   has_many :orders, through: :order_items
 
@@ -43,12 +44,8 @@ class Item < ApplicationRecord
     OrderItem.find_by_item_id(self.id) !=  nil
   end
 
-  def review_description(user)
-    review = Review.where(user_id: user)
-    review.first.description
-  end
-
-  def enabled_reviews
-    Review.where(status: true, item: self)
-  end
+  #
+  # def enabled_reviews
+  #   Review.where(status: true, item: self)
+  # end
 end

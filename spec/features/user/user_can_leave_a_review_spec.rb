@@ -83,9 +83,9 @@ describe "as a user when I visit an completed order show page" do
       click_button('Leave Review')
     end
 
-    expect(current_path).to eq(new_item_reviews_path(@item_1))
+    expect(current_path).to eq(profile_order_order_item_new_review_path(@order, @oi_1))
 
-    review_title = "Didn't need it."
+    review_title = "Didnt need it."
     user_name = "#{@user.name}"
     rating = 5
     review_text = "Wasn't useful at all"
@@ -96,24 +96,18 @@ describe "as a user when I visit an completed order show page" do
     fill_in :review_description, with: review_text
     click_button 'Create Review'
 
+    expect(current_path).to eq(item_path(@item_1))
+
     visit profile_order_path(@order)
 
     within "#oitem-#{@oi_1.id}" do
       expect(page).to_not have_button('Leave Review')
-      expect(page).to have_content("Reviews: #{@item_1.reviews.count}")
-      expect(page).to have_content("Your review: #{@item_1.review_description(@user)}")
+      expect(page).to have_content("Reviews: #{@oi_1.reviews.count}")
+      expect(page).to have_content("Your review: #{@oi_1.review_description}")
     end
 
     within "#oitem-#{@oi_2.id}" do
       expect(page).to have_button('Leave Review')
-    end
-
-    expect(current_path).to eq(profile_order_path(@order))
-
-    visit items_path
-
-    within("#item-#{@oi_1.item.id}") do
-      expect(page).to have_content("Reviews: 1")
     end
   end
   it 'cannot review any items on a cancelled order' do

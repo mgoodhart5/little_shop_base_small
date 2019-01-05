@@ -15,4 +15,9 @@ class OrderItem < ApplicationRecord
   def subtotal
     quantity * price
   end
+
+  def review_description
+    reviews.pluck(:description)[0]
+  end
+
 end

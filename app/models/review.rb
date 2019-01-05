@@ -5,7 +5,6 @@ class Review < ApplicationRecord
   belongs_to :user
 
   def user_name
-    user = User.find(self.user_id)
     user.name
   end
 

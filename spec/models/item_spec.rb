@@ -14,7 +14,7 @@ RSpec.describe Item, type: :model do
   describe 'relationships' do
     it { should belong_to :user }
     it { should have_many :order_items }
-    it { should have_many :reviews }
+    # it { should have_many :reviews }
     it { should have_many(:orders).through(:order_items) }
   end
 
@@ -67,28 +67,18 @@ RSpec.describe Item, type: :model do
       expect(item_1.ever_ordered?).to eq(true)
       expect(item_2.ever_ordered?).to eq(false)
     end
-    it '.current_user_review_description' do
-      user = create(:user, name: "Mary")
-      user_2 = create(:user, name: "Leigh")
-      item = create(:item)
-      review = Review.create(title: "yay", description: "great", rating: 4, item: item, user: user)
-      review_2 = Review.create(title: "yay", description: "great", rating: 4, item: item, user: user_2)
-      user.reviews << review
-      final = item.review_description(user)
 
-      expect(final).to eq(review.description)
-    end
-    it '.enabled_review' do
-      user = create(:user, name: "Mary")
-      item = create(:item)
-      item_2 = create(:item)
-      review = Review.create(title: "yay", description: "great", rating: 4, item: item, user: user)
-      review_2 = Review.create(title: "better", description: "fun", rating: 4, item: item, user: user, status: false)
-      review_3 = Review.create(title: "better", description: "fun", rating: 4, item: item_2, user: user)
-      user.reviews << review
-      final = item.enabled_reviews
-
-      expect(final).to eq([review])
-    end
+    # it '.enabled_review' do
+    #   user = create(:user, name: "Mary")
+    #   item = create(:item)
+    #   item_2 = create(:item)
+    #   review = Review.create(title: "yay", description: "great", rating: 4, item: item, user: user)
+    #   review_2 = Review.create(title: "better", description: "fun", rating: 4, item: item, user: user, status: false)
+    #   review_3 = Review.create(title: "better", description: "fun", rating: 4, item: item_2, user: user)
+    #   user.reviews << review
+    #   final = item.enabled_reviews
+    #
+    #   expect(final).to eq([review])
+    # end
   end
 end

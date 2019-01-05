@@ -24,5 +24,15 @@ RSpec.describe OrderItem, type: :model do
 
       expect(oi.subtotal).to eq(15)
     end
+    it '.review_description' do
+      user = create(:user, name: "Mary")
+      item = create(:item)
+      order = create(:completed_order)
+      oi_1 = create(:fulfilled_order_item, order: order, item: item, created_at: 4.days.ago, updated_at: 1.days.ago)
+      review = Review.create(title: "yay", description: "great", rating: 4, order_item: oi_1, user: user)
+      final = oi_1.review_description
+
+      expect(final).to eq(review.description)
+    end
   end
 end
