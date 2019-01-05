@@ -8,4 +8,8 @@ class Review < ApplicationRecord
     user.name
   end
 
+  def self.enabled_reviews(item)
+    where(status:true, order_item: item.order_items)
+  end
+
 end
