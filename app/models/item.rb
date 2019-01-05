@@ -43,4 +43,8 @@ class Item < ApplicationRecord
   def ever_ordered?
     OrderItem.find_by_item_id(self.id) !=  nil
   end
+
+  def current_reviews
+    Review.where(status:true, order_item: self.order_items)
+  end
 end

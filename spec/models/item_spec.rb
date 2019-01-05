@@ -66,5 +66,17 @@ RSpec.describe Item, type: :model do
       expect(item_1.ever_ordered?).to eq(true)
       expect(item_2.ever_ordered?).to eq(false)
     end
+    it '.current_reviews' do
+      user = create(:user, name: "Mary")
+      item = create(:item)
+      order = create(:completed_order)
+      oi_1 = create(:fulfilled_order_item, order: order, item: item, created_at: 4.days.ago, updated_at: 1.days.ago)
+      oi_3 = create(:fulfilled_order_item, order: order, item: item, created_at: 4.days.ago, updated_at: 1.days.ago)
+      review_2 = Review.create(title: "better", description: "fun", rating: 4, order_item: oi_1, user: user, status: false)
+      review_3 = Review.create(title: "better", description: "fun", rating: 4, order_item: oi_3, user: user)
+      reviews = ([review_3])
+
+      expect(item.current_reviews).to eq(reviews)
+    end
   end
 end
