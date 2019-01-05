@@ -23,6 +23,8 @@ Merchant is out of stock, sorry
         <%= review.created_at.strftime("%A %B %d, %Y") %>
         <%= link_to "Return to Orders", profile_orders_path(review.user) %>
     </div>
+    <% elsif @item.current_reviews.count > 0 %>
+      <%= " " %>
     <% else %>
       <%= "No reviews currently." %>
     <% end %>
