@@ -1,5 +1,5 @@
 class Profile::OrdersController < ApplicationController
-  before_action :require_default_user, only: :index
+  before_action :require_default_user, only: [:index, :show]
 
   def index
     @orders = current_user.orders

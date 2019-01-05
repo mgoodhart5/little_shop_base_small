@@ -12,6 +12,7 @@ describe 'as a user on an order show page when i have disabled a review' do
     @oi_2 = create(:fulfilled_order_item, order: @order, item: @item_2, price: 2, quantity: 1, created_at: @yesterday, updated_at: 2.hours.ago)
     @review = Review.create(title: "yay", description: "great", rating: 4, order_item: @oi_1, user: @user, status: false)
     @review_1 = Review.create(title: "hooray", description: "great", rating: 4, order_item: @oi_2, user: @user, status: true)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
   end
   it 'sees a button to enable that review' do
 
@@ -48,16 +49,3 @@ describe 'as a user on an order show page when i have disabled a review' do
     end
   end
 end
-
-
-
-
-
-
-
-
-# any disabled rating that a user sees on their order show page
-# can be enabled by clicking enable. this will add this review
-# to an item review count again and will be reflected it the total
-# reviews count on the index page as well as on the item show page.
-# after enabling, they will now see a 'disable' button.

@@ -1,4 +1,5 @@
 class Profile::ReviewsController < ApplicationController
+  before_action :require_default_user
 
   def new
     @review = Review.new
@@ -45,6 +46,10 @@ class Profile::ReviewsController < ApplicationController
 
   def review_params
     params.require(:review).permit(:title, :rating, :description)
+  end
+
+  def require_default_user
+    render file: 'errors/not_found', status: 404 unless current_user && current_user.default?
   end
 
 end
