@@ -22,7 +22,6 @@ class UsersController < ApplicationController
   def update
     @user = User.find_by(slug: params[:slug])
     render file: 'errors/not_found', status: 404 unless current_user == @user || current_admin?
-
     @user.update(user_params)
     if @user.save
       session[:user_id] = @user.id
