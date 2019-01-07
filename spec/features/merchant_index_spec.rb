@@ -9,7 +9,7 @@ RSpec.describe 'Merchant Index Page', type: :feature do
     it 'should show all active merchants' do
       visit merchants_path
 
-      within "#merchant-#{@merchant.id}" do
+      within "#merchant-#{@merchant.slug}" do
         expect(page).to have_content("#{@merchant.name}, #{@merchant.city} #{@merchant.state}")
         expect(page).to have_content(@merchant.created_at)
       end
@@ -121,13 +121,13 @@ NYC, Seattle WA, Seattle FL
     it 'should show all merchants with enable/disable buttons' do
       visit merchants_path
 
-      within "#merchant-#{@merchant.id}" do
+      within "#merchant-#{@merchant.slug}" do
         expect(page).to have_link(@merchant.name)
         expect(page).to have_content("#{@merchant.name}, #{@merchant.city} #{@merchant.state}")
         expect(page).to have_content(@merchant.created_at)
         expect(page).to have_button('Disable')
       end
-      within "#merchant-#{@inactive_merchant.id}" do
+      within "#merchant-#{@inactive_merchant.slug}" do
         expect(page).to have_link(@inactive_merchant.name)
         expect(page).to have_content("#{@inactive_merchant.name}, #{@inactive_merchant.city} #{@inactive_merchant.state}")
         expect(page).to have_content(@inactive_merchant.created_at)
@@ -137,7 +137,7 @@ NYC, Seattle WA, Seattle FL
     it 'should show an admin user a merchant dashboard' do
       visit merchants_path
 
-      within "#merchant-#{@merchant.id}" do
+      within "#merchant-#{@merchant.slug}" do
         click_link(@merchant.name)
       end
 
