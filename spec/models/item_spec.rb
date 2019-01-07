@@ -91,5 +91,11 @@ RSpec.describe Item, type: :model do
 
       expect(item.average_rating).to eq(avg)
     end
+    it '.generate_slug' do
+      item = create(:item, name: "Old Fashioned")
+      final = item.slug
+      
+      expect(item.slug).to eq(final)
+    end
   end
 end

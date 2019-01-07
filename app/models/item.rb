@@ -1,5 +1,6 @@
 class Item < ApplicationRecord
   belongs_to :user, foreign_key: 'merchant_id'
+  before_create :generate_slug
 
   has_many :order_items
   has_many :orders, through: :order_items
@@ -49,5 +50,15 @@ class Item < ApplicationRecord
 
   def average_rating
     Review.where(status: true, order_item: self.order_items).average(:rating)
+  end
+
+  def to_param
+    slug
+  end
+
+  private
+
+  def generate_slug
+    self.slug = name.downcase.delete(" ") + ((rand(1..100)).to_s) if name
   end
 end
