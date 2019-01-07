@@ -5,6 +5,7 @@ class User < ApplicationRecord
   has_many :reviews
   has_many :orders
   has_many :order_items, through: :orders
+  before_create :generate_slug
 
   validates_presence_of :name, :address, :city, :state, :zip
   validates :email, presence: true, uniqueness: true
@@ -112,5 +113,14 @@ class User < ApplicationRecord
       .group(:id)
       .order('revenue desc')
       .limit(3)
+  end
+  def to_param
+    slug
+  end
+
+  private
+
+  def generate_slug
+    self.slug = email.parameterize if email
   end
 end

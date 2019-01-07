@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root to: 'welcome#index'
 
   resources :items, only: [:index, :show], param: :slug
-  resources :merchants, only: [:index]
+  resources :merchants, only: [:index], param: :slug
 
   get '/cart', to: 'cart#index'
   post '/cart/additem/:slug', to: 'cart#add_item', as: 'cart_add_item'
@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   get '/logout', to: 'session#destroy'
 
   get '/register', to: 'users#new', as: 'registration'
-  resources :users, only: [:create, :update]
+  resources :users, only: [:create, :update], param: :slug
 
   get '/dashboard', to: 'merchants#show', as: 'dashboard'
   namespace :dashboard do
@@ -40,16 +40,16 @@ Rails.application.routes.draw do
     end
   end
 
-  post '/admin/users/:merchant_id/items', to: 'dashboard/items#create', as: 'admin_user_items'
-  patch '/admin/users/:merchant_id/items/:slug', to: 'dashboard/items#update', as: 'admin_user_item'
+  post '/admin/users/:slug/items', to: 'dashboard/items#create', as: 'admin_user_items'
+  patch '/admin/users/:slug/items/:slug', to: 'dashboard/items#update', as: 'admin_user_item'
   namespace :admin do
-    resources :users, only: [:index, :show, :edit] do
+    resources :users, only: [:index, :show, :edit], param: :slug do
       post '/enable', to: 'users#enable', as: 'enable'
       post '/disable', to: 'users#disable', as: 'disable'
       post '/upgrade', to: 'users#upgrade', as: 'upgrade'
       resources :orders, only: [:index, :show]
     end
-    resources :merchants, only: [:show] do
+    resources :merchants, only: [:show], param: :slug do
       post '/enable', to: 'merchants#enable', as: 'enable'
       post '/disable', to: 'merchants#disable', as: 'disable'
       post '/upgrade', to: 'merchants#downgrade', as: 'downgrade'

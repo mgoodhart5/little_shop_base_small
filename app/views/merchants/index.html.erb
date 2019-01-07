@@ -13,7 +13,7 @@
 
   <tbody>
 <% @merchants.each do |merchant| %>
-  <%= tag.tr id: "merchant-#{merchant.id}" do %>
+  <%= tag.tr id: "merchant-#{merchant.slug}" do %>
   <td>
     <% if current_admin? %><%= link_to merchant.name, admin_merchant_path(merchant) %><% else %><%= merchant.name %><% end %>,
     <%= merchant.city %> <%= merchant.state %></td>

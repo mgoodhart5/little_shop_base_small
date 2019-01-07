@@ -33,6 +33,7 @@ RSpec.describe 'Upgrade/Downgrade users', type: :feature do
       fill_in :email, with: @user_email
       fill_in :password, with: @password
       click_button 'Log in'
+      
       expect(current_path).to eq(dashboard_path)
       visit merchants_path
       expect(page).to have_content(@user.name)
