@@ -19,4 +19,5 @@ class OrderItem < ApplicationRecord
   def review_description
     reviews.pluck(:description)[0]
   end
+  
 end

@@ -42,6 +42,16 @@ class Profile::ReviewsController < ApplicationController
     redirect_to profile_order_path(order)
   end
 
+  def destroy
+    review = Review.find(params[:id])
+    order_item = OrderItem.find(review.order_item_id)
+    order = Order.find(params[:order_id])
+    review.destroy
+
+    flash[:notice] = "You deleted your review for #{order_item.item.name}!"
+    redirect_to profile_order_path(order)
+  end
+
   private
 
   def review_params

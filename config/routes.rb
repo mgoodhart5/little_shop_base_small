@@ -36,6 +36,7 @@ Rails.application.routes.draw do
       post '/order_item/:order_item_id/review', to: 'reviews#create', as: 'order_item_reviews'
       patch '/order_item/:order_item_id/review/:id/disable', to: 'reviews#disable', as: 'order_item_disable_review'
       patch '/order_item/:order_item_id/review/:id/enable', to: 'reviews#enable', as: 'order_item_enable_review'
+      delete '/order_item/:order_item_id/review/:id/destroy', to: 'reviews#destroy', as: 'order_item_delete_review'
     end
   end
 
